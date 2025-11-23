@@ -2,14 +2,14 @@
 
 ### What this orchestrator does
 
-This service exposes a **single, policy-aware orchestration endpoint** that:
+This service exposes a single, policy-aware orchestration endpoint that:
 
 - **Intake agent**: Classifies the user request into a simple task type.
-- **Policy engine**: Enforces rules to **allow**, **block**, or **modify** the input (with redaction of basic PII).
-- **Task agent**: When allowed, calls **Anthropic Claude** with **structured JSON output**.
+- **Policy engine**: Enforces rules to allow, block, or modify the input (with redaction of basic PII).
+- **Task agent**: When allowed, calls Anthropic Claude with structured JSON output.
 - **Audit logger**: Appends a compact JSON record to `logs/audit.jsonl` for every request.
 
-All internal agent outputs and final API responses are **valid JSON objects**.
+All internal agent outputs and final API responses are valid JSON objects.
 
 ---
 
@@ -120,7 +120,7 @@ If the request is **blocked**, `agent_output` will be `null` and `policy_decisio
   - If the text contains obvious disallowed content based on a simple keyword list, e.g. phrases like `"build a bomb"` or `"terrorist attack"`.
 
 - **Modify** (`decision = "modify"`):
-  - Emails and simple phone number patterns are **redacted** using regex and replaced with:
+  - Emails and simple phone number patterns are redacted using regex and replaced with:
     - `[REDACTED_EMAIL]`
     - `[REDACTED_PHONE]`
 
@@ -175,13 +175,13 @@ client.messages.create(
     - Returns JSON like:
       - `{"answer": "...", "notes": "..."}`.
 
-All responses are parsed and validated as **JSON objects**.
+All responses are parsed and validated as JSON objects.
 
 ---
 
 ### Audit logging
 
-- Logs are written to `logs/audit.jsonl` as **one JSON object per line**.
+- Logs are written to `logs/audit.jsonl` as one JSON object per line.
 - Schema (`AuditLogEntry`):
 
 ```json
@@ -196,9 +196,9 @@ All responses are parsed and validated as **JSON objects**.
 }
 ```
 
-- The logger **never stores the full Claude response**:
+- The logger never stores the full Claude response:
   - It looks for standard keys like `"summary"` or `"answer"`.
-  - Falls back to a **truncated, 500-character** JSON string if needed.
+  - Falls back to a truncated, 500-character JSON string if needed.
 
 ---
 
