@@ -48,7 +48,9 @@ policy_orchestrator/
 - **Create and activate a virtualenv**:
 
 ```bash
-cd /Users/charityhipple/dev/Orchestrator
+git clone https://example.com/your-org/policy-orchestrator.git
+cd policy-orchestrator
+
 python -m venv .venv
 source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 ```
@@ -61,7 +63,7 @@ pip install -r requirements.txt
 
 - **Configure environment**:
 
-Create a `.env` file in the project root with:
+Create a `.env` file in the project root (or use `.env.example` as a template) with:
 
 ```bash
 echo "ANTHROPIC_API_KEY=your_anthropic_api_key_here" > .env
@@ -73,7 +75,7 @@ echo "ANTHROPIC_API_KEY=your_anthropic_api_key_here" > .env
 uvicorn app.main:app --reload
 ```
 
-The API will be available at `http://127.0.0.1:8000`.
+By default, the API will be available at `http://127.0.0.1:8000`.
 
 ---
 
